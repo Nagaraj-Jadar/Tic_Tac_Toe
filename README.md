@@ -8,18 +8,6 @@ A simple Tic-Tac-Toe game built using HTML, CSS, and JavaScript.
 - **Simple UI**: Easy-to-use interface for a fun experience.
 - **Winner detection**: Automatically detects when a player wins or when there's a draw.
 
-## Screenshots
-
-![Tic Tac Toe Game Screenshot](assets/images/tic-tac-toe-screenshot.png)
-
-> A screenshot of the Tic Tac Toe game in action.
-
-### Game in Action
-
-![Game Play](assets/images/game-play.gif)
-
-> A short GIF showcasing the gameplay and how the game works.
-
 ## Technologies Used
 
 - **HTML**: For the game structure.
