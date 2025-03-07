@@ -1,27 +1,29 @@
 # Tic-Tac-Toe Game 🎮
 
-A simple Tic-Tac-Toe game built using HTML, CSS, and JavaScript.
+A simple 2-player Tic-Tac-Toe game built with **HTML**, **CSS**, and **JavaScript**.
 
 ## Features
 
-- **Playable with two players**: Enjoy a competitive game with a friend.
-- **Simple UI**: Easy-to-use interface for a fun experience.
-- **Winner detection**: Automatically detects when a player wins or when there's a draw.
+- **2-Player Mode**: Play with a friend on the same device.
+- **Clean & Simple UI**: Easy-to-use interface for a smooth experience.
+- **Automatic Winner Detection**: Instantly shows when a player wins or when it's a draw.
+- **Game Reset**: Restart the game with a single click.
 
-## Technologies Used
+## Technologies
 
-- **HTML**: For the game structure.
-- **CSS**: For styling the game.
-- **JavaScript**: For implementing the game logic and interactivity.
+- **HTML**: Game structure and layout.
+- **CSS**: Styling for a clean interface.
+- **JavaScript**: Game logic and player interactions.
 
 ## Getting Started
 
 ### Prerequisites
 
-- A web browser to run the game (e.g., Chrome, Firefox).
+- Any modern web browser (e.g., Chrome, Firefox).
 
 ### Installation
 
-1. Clone the repository:
+1. Clone or download the repository:
    ```bash
    git clone https://github.com/Nagaraj-Jadar/Tic_Tac_Toe.git
+2. Open the index.html file in your browser to start playing.
