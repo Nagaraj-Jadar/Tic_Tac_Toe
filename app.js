@@ -1,68 +1,91 @@
-const boxes = document.querySelectorAll(".box");
-const resetBtn = document.querySelector("#reset-btn");
-const newGameBtn = document.querySelector("#new-btn");
-const msgContainer = document.querySelector(".msg-container");
-const msg = document.querySelector("#msg");
+let boxes = document.querySelectorAll(".box");
+let resetBtn = document.querySelector("#reset-btn");
+let newGameBtn = document.querySelector("#new-btn");
+let msgContainer = document.querySelector(".msg-container");
+let msg = document.querySelector("#msg");
 
-let currentPlayer = "X";
-let gameActive = true;
-let board = ["", "", "", "", "", "", "", "", ""];
+let turnO = true; //playerX, playerO
+let count = 0; //To Track Draw
 
-// Winning combinations
 const winPatterns = [
-    [0, 1, 2], [3, 4, 5], [6, 7, 8], // Rows
-    [0, 3, 6], [1, 4, 7], [2, 5, 8], // Columns
-    [0, 4, 8], [2, 4, 6]  // Diagonals
+  [0, 1, 2],
+  [0, 3, 6],
+  [0, 4, 8],
+  [1, 4, 7],
+  [2, 5, 8],
+  [2, 4, 6],
+  [3, 4, 5],
+  [6, 7, 8],
 ];
 
-// Function to check winner
-const checkWinner = () => {
-    for (let pattern of winPatterns) {
-        let [a, b, c] = pattern;
-        if (board[a] && board[a] === board[b] && board[a] === board[c]) {
-            gameActive = false;
-            showWinner(board[a]);
-            return;
-        }
-    }
-
-    // Check for a draw
-    if (!board.includes("")) {
-        gameActive = false;
-        showWinner("Draw");
-    }
+const resetGame = () => {
+  turnO = true;
+  count = 0;
+  enableBoxes();
+  msgContainer.classList.add("hide");
 };
 
-// Function to display winner message
-const showWinner = (winner) => {
-    msg.innerText = (winner === "Draw") ? "It's a Draw!" : `Player ${winner} Wins!`;
-    msgContainer.classList.remove("hide");
-};
-
-// Function to handle box click
-const handleClick = (index) => {
-    if (board[index] === "" && gameActive) {
-        board[index] = currentPlayer;
-        boxes[index].innerText = currentPlayer;
-        checkWinner();
-        currentPlayer = currentPlayer === "X" ? "O" : "X"; // Toggle player
+boxes.forEach((box) => {
+  box.addEventListener("click", () => {
+    if (turnO) {
+      //playerO
+      box.innerText = "O";
+      turnO = false;
+    } else {
+      //playerX
+      box.innerText = "X";
+      turnO = true;
     }
-};
+    box.disabled = true;
+    count++;
 
-// Add event listeners to boxes
-boxes.forEach((box, index) => {
-    box.addEventListener("click", () => handleClick(index));
+    let isWinner = checkWinner();
+
+    if (count === 9 && !isWinner) {
+      gameDraw();
+    }
+  });
 });
 
-// Reset game function
-const resetGame = () => {
-    board.fill("");
-    boxes.forEach(box => box.innerText = "");
-    currentPlayer = "X";
-    gameActive = true;
-    msgContainer.classList.add("hide");
+const gameDraw = () => {
+  msg.innerText = `Game was a Draw.`;
+  msgContainer.classList.remove("hide");
+  disableBoxes();
 };
 
-// Event listeners for reset and new game buttons
-resetBtn.addEventListener("click", resetGame);
+const disableBoxes = () => {
+  for (let box of boxes) {
+    box.disabled = true;
+  }
+};
+
+const enableBoxes = () => {
+  for (let box of boxes) {
+    box.disabled = false;
+    box.innerText = "";
+  }
+};
+
+const showWinner = (winner) => {
+  msg.innerText = `Congratulations, Winner is ${winner}`;
+  msgContainer.classList.remove("hide");
+  disableBoxes();
+};
+
+const checkWinner = () => {
+  for (let pattern of winPatterns) {
+    let pos1Val = boxes[pattern[0]].innerText;
+    let pos2Val = boxes[pattern[1]].innerText;
+    let pos3Val = boxes[pattern[2]].innerText;
+
+    if (pos1Val != "" && pos2Val != "" && pos3Val != "") {
+      if (pos1Val === pos2Val && pos2Val === pos3Val) {
+        showWinner(pos1Val);
+        return true;
+      }
+    }
+  }
+};
+
 newGameBtn.addEventListener("click", resetGame);
+resetBtn.addEventListener("click", resetGame);
